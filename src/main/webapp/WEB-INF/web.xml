@@ -7,6 +7,21 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
-
+   <listener>
+        <listener-class>
+                com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+        </listener-class>
+    </listener>
+    
+    <servlet-mapping>
+        <servlet-name>sun-ri</servlet-name>
+        <url-pattern>/HelloWorldImplSunRi1</url-pattern>
+    </servlet-mapping>
+<servlet>
+        <servlet-name>sun-ri</servlet-name>
+        <servlet-class>
+        	com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 </web-app>
