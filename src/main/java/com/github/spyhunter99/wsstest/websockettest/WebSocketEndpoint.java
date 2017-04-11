@@ -13,19 +13,25 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.spi.JsonProvider;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ApplicationScoped
+@javax.enterprise.context.ApplicationScoped
 @ServerEndpoint("/WebSocketEndpoint")
 public class WebSocketEndpoint extends BaseSocketServer {
 
     public WebSocketEndpoint() throws Exception {
 
         System.out.println("WebSocketEndpoint started");
+        SingletonInstance.setInstance(this);
+
+        
+        
     }
 
     //inbound message to the web socket(client)

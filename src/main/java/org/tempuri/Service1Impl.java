@@ -5,14 +5,21 @@
  */
 package org.tempuri;
 
+import com.github.spyhunter99.wsstest.websockettest.SingletonInstance;
+import com.github.spyhunter99.wsstest.websockettest.WebSocketEndpoint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.json.JsonObject;
+import javax.json.spi.JsonProvider;
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import org.tempuri.IService1;
@@ -40,7 +47,19 @@ public class Service1Impl implements IService1 {
     public String workingGetData(
         @WebParam(name = "value", targetNamespace = "http://tempuri.org/")
          Integer value) {
-        return "workingGetData";
+          
+        WebSocketEndpoint instance = SingletonInstance.getInstance();
+       
+        
+            JsonProvider provider = JsonProvider.provider();
+            JsonObject addMessage = provider.createObjectBuilder()
+                    .add("action", "workingGetData")
+                    
+                    .build();
+            
+            instance.sendToAllConnectedSessions(addMessage);
+       
+          return "workingGetData";
     }
 
     /**
