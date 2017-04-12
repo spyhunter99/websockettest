@@ -36,6 +36,7 @@
             function onClose() {
                 window.console && window.console.log("web socket closed");
                 $("#wsSocketTest").text("disconnected...");
+                //TODO start up a javascript timer to periodically attempt reconnection
             }
             /**
              * inbound message FROM the web data_socket(server)

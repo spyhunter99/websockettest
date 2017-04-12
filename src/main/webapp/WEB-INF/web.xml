@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-         version="3.0">
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <display-name>WSS Socket Test</display-name>
+    <servlet-mapping>
+        <servlet-name>HelloWorldImplSunRi1</servlet-name>
+        <url-pattern>/HelloWorldImplSunRi1</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-   <listener>
+    <listener>
         <listener-class>
                 com.sun.xml.ws.transport.http.servlet.WSServletContextListener
         </listener-class>
     </listener>
-    
-    <servlet-mapping>
-        <servlet-name>sun-ri</servlet-name>
-        <url-pattern>/HelloWorldImplSunRi1</url-pattern>
-    </servlet-mapping>
-<servlet>
+    <servlet>
+        <servlet-name>HelloWorldImplSunRi1</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+  
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <servlet>
         <servlet-name>sun-ri</servlet-name>
         <servlet-class>
         	com.sun.xml.ws.transport.http.servlet.WSServlet

@@ -28,44 +28,53 @@ public class WebSocketEndpoint extends BaseSocketServer {
     public WebSocketEndpoint() throws Exception {
 
         System.out.println("WebSocketEndpoint started");
-        SingletonInstance.setInstance(this);
 
-        
-        
     }
 
-    //inbound message to the web socket(client)
+    //inbound message from the web socket(client)
     @OnMessage
     public void handleMessage(String message, Session session) {
-        try (JsonReader reader = Json.createReader(new StringReader(message))) {
+        try {
+            JsonReader reader = Json.createReader(new StringReader(message));
             JsonObject jsonMessage = reader.readObject();
 
             final String action = jsonMessage.getString("action");
+            System.out.println("WSS inbound from " + session.getId() + " action " + action);
+            if ("broadcast".equals(action)) {
+                try {
+                    JsonProvider provider = JsonProvider.provider();
 
-            try {
-                JsonProvider provider = JsonProvider.provider();
+                    JsonObject addMessage = provider.createObjectBuilder()
+                            .add("action", action)
+                            .add("echo", "Broadcast!")
+                            .build();
 
-                JsonObject addMessage = provider.createObjectBuilder()
-                        .add("echo", "Hello world from web socket endpoint!")
-                        .add("action", action)
-                        .build();
+                    sendToAllConnectedSessions(addMessage);
+                    
 
-                session.getBasicRemote().sendText(addMessage.toString());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            } else {
+                try {
+                    JsonProvider provider = JsonProvider.provider();
+
+                    JsonObject addMessage = provider.createObjectBuilder()
+                            .add("echo", "Hello world from web socket endpoint!")
+                            .add("action", action)
+                            .build();
+                    sendToAllConnectedSessions(addMessage);
+                    //session.getBasicRemote().sendText(addMessage.toString());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
-    @OnClose
-    public void close(Session session) {
-        removeSession(session);
-    }
-
-    @OnError
-    public void onError(Throwable error) {
-        Logger.getLogger(SocketServer.class.getName()).log(Level.SEVERE, null, error);
-    }
-
+   
 }
