@@ -49,8 +49,17 @@ public class WebSocketEndpoint extends BaseSocketServer {
                             .add("echo", "Broadcast!")
                             .build();
 
+                    /*
+                    this doesn't work
+                    try {
+                        for (Session sess : session.getOpenSessions()) {
+                            if (sess.isOpen()) {
+                                sess.getBasicRemote().sendText(addMessage.toString());
+                            }
+                        }
+                    } catch (Exception e) {
+                    }*/
                     sendToAllConnectedSessions(addMessage);
-                    
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -76,5 +85,4 @@ public class WebSocketEndpoint extends BaseSocketServer {
         }
     }
 
-   
 }

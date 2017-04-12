@@ -44,7 +44,6 @@ public abstract class BaseSocketServer {
     public void sendToAllConnectedSessions(JsonObject message) {
         System.out.println("TX broadcast " + sessions.size());
         synchronized (sessions) {
-
             for (Session session : sessions) {
                 sendToSession(session, message);
             }
