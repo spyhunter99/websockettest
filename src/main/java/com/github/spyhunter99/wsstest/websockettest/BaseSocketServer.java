@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.JsonObject;
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnOpen;
@@ -22,6 +23,7 @@ public abstract class BaseSocketServer {
     private static final Set<Session> sessions
             = Collections.synchronizedSet(new HashSet<Session>());
 
+  
     @OnOpen
     public void open(Session session) {
 

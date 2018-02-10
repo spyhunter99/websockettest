@@ -22,7 +22,7 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 @javax.enterprise.context.ApplicationScoped
-@ServerEndpoint("/WebSocketEndpoint")
+@ServerEndpoint(value="/WebSocketEndpoint", configurator = SomeCustomConfigurationClass.class)
 public class WebSocketEndpoint extends BaseSocketServer {
 
     public WebSocketEndpoint() throws Exception {
