@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
-    <endpoint implementation="org.tempuri.Service1Impl" name="HelloWorldImplSunRi1" url-pattern="/HelloWorldImplSunRi1">
-        
-    </endpoint>
-  
+  <endpoint implementation="org.tempuri.Service1Impl" name="Service1ImplService" url-pattern="/Service1ImplService"/>
 </endpoints>
